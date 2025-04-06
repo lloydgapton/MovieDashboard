@@ -21,6 +21,21 @@ export default function App(): JSX.Element{
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Load data from localStorage
+  useEffect(() => {
+    try {
+      setLoading(true);
+      const stored = JSON.parse(localStorage.getItem("movies") || "[]") as Movie[];
+      setMovies(stored.length ? stored : sampleMovies);
+    } catch (err) {
+      console.error("Error loading data:", err);
+      setError("Failed to load movie data. Using default data.");
+      setMovies(sampleMovies);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return(
     <div className="p-4 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">🎬 Movie Dashboard</h1>
