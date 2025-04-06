@@ -98,7 +98,6 @@ export default function App(): JSX.Element{
     <div className="p-6 max-w-6xl mx-auto bg-white rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">🎬 Movie Dashboard</h1>
       
-      /* Error Display */
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
           <span>{error}</span>
