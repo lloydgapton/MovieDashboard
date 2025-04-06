@@ -15,6 +15,12 @@ const sampleMovies: Movie[] = [
 ];
 
 export default function App(): JSX.Element{
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [search, setSearch] = useState<string>("");
+  const [editId, setEditId] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   return(
     <div className="p-4 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">🎬 Movie Dashboard</h1>
