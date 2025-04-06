@@ -74,6 +74,26 @@ export default function App(): JSX.Element{
       }
     };
 
+    const handleEdit = (movie: Movie): void => {
+      setEditId(movie.id);
+    };
+  
+    const handleSearchChange = (value: string): void => {
+      setSearch(value);
+    };
+  
+    const clearError = (): void => {
+      setError(null);
+    };
+
+     // Filter movies based on search
+  const filteredMovies = movies.filter((m) =>
+    m.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  // Find movie being edited
+  const movieToEdit = movies.find(m => m.id === editId);
+
   return(
     <div className="p-4 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">🎬 Movie Dashboard</h1>
