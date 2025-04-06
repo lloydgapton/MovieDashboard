@@ -1,5 +1,6 @@
 import React from 'react';
 import { JSX } from 'react';
+import styles from '../../styles/input.module.css';
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   value: string | number;
@@ -16,15 +17,15 @@ export function Input({
   ...props 
 }: InputProps): JSX.Element {
   return (
-    <div className="flex flex-col">
+    <div className={styles.inputWrapper}>
       <input
-        className={`border p-2 rounded ${error ? "border-red-500" : ""}`}
+        className={`${styles.inputField} ${error ? styles.inputError : ''}`}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         {...props}
       />
-      {error && <span className="text-red-500 text-xs mt-1">{error}</span>}
+      {error && <span className={styles.errorText}>{error}</span>}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { JSX } from "react";
 import { Button } from "./ui/Button";
 import { Movie } from "../types";
+import styles from "../styles/moviecard.module.css"
 
 interface MovieCardProps {
   movie: Movie;
@@ -16,12 +17,12 @@ export default function MovieCard({ movie, onDelete, onEdit }: MovieCardProps): 
   };
 
   return (
-    <div className="border p-4 rounded shadow-md flex justify-between items-center">
+    <div className={styles.card}>
       <div>
-        <h2 className="font-semibold">{movie.title} ({movie.year})</h2>
+        <h2 className={styles.title}>{movie.title} ({movie.year})</h2>
         <p>Genre: {movie.genre} | Rating: {movie.rating}</p>
       </div>
-      <div className="flex gap-2">
+      <div className={styles.actions}>
         <Button small onClick={() => onEdit(movie)}>
           Edit
         </Button>

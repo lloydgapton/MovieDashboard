@@ -1,0 +1,20 @@
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inputField {
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+  }
+  
+  .inputError {
+    border-color: #ef4444;
+  }
+  
+  .errorText {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }

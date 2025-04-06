@@ -1,6 +1,7 @@
 import { JSX } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Movie } from "../types";
+import styles from "../styles/statssection.module.css";
 
 interface StatsSectionProps {
   movies: Movie[];
@@ -43,13 +44,13 @@ export default function StatsSection({ movies }: StatsSectionProps): JSX.Element
   const { total, avgRating, chartData } = stats();
 
   return (
-    <div className="mt-8 border-t pt-4">
-      <h2 className="text-xl font-bold mb-2">📊 Stats</h2>
-      <p>Total Movies: {total}</p>
-      <p>Average Rating: {total > 0 ? avgRating : "N/A"}</p>
+    <div className={styles.container}>
+      <h2 className={styles.title}>📊 Stats</h2>
+      <p className={styles.total}>Total Movies: {total}</p>
+      <p className={styles.rating}>Average Rating: {total > 0 ? avgRating : "N/A"}</p>
       
       {total > 0 ? (
-        <ResponsiveContainer width="100%" height={200} className="mt-4">
+        <ResponsiveContainer width="100%" height={200} className={styles.chart}>
           <BarChart data={chartData}>
             <XAxis dataKey="name" />
             <YAxis />
@@ -58,7 +59,7 @@ export default function StatsSection({ movies }: StatsSectionProps): JSX.Element
           </BarChart>
         </ResponsiveContainer>
       ) : (
-        <p className="text-gray-500 mt-2">Add movies to see statistics</p>
+        <p className={styles.message}>Add movies to see statistics</p>
       )}
     </div>
   );

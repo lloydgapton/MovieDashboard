@@ -1,5 +1,6 @@
 import React from 'react';
 import { JSX } from 'react';
+import styles from '../../styles/button.module.css';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -16,17 +17,16 @@ export function Button({
   small, 
   ...props 
 }: ButtonProps): JSX.Element {
-  const baseClasses = "px-4 py-2 rounded font-medium transition-colors";
-  const sizeClasses = small ? "px-2 py-1 text-sm" : "px-4 py-2";
-  const colorClasses = primary 
-    ? "bg-blue-500 hover:bg-blue-600 text-white" 
-    : danger 
-      ? "bg-red-500 hover:bg-red-600 text-white" 
-      : "bg-gray-200 hover:bg-gray-300 text-gray-800";
+  let className = styles.button;
+  if (primary) className += ` ${styles.primary}`;
+  else if (danger) className += ` ${styles.danger}`;
+  else className += ` ${styles.default}`;
+
+  if (small) className += ` ${styles.small}`;
 
   return (
     <button
-      className={`${baseClasses} ${sizeClasses} ${colorClasses}`}
+      className={className}
       onClick={onClick}
       {...props}
     >

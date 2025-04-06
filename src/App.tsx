@@ -7,6 +7,9 @@ import {useEffect, useState} from "react";
 import { Movie } from "./types";
 import { LoadingSpinner } from "./components/ui/LoadingSpinner";
 import { JSX } from "react";
+import "./App.module.css";
+import styles from "./App.module.css";
+
 
 const sampleMovies: Movie[] = [
   { id: 1, title: "Inception", year: 2010, genre: "Sci-Fi", rating: 8.8 },
@@ -21,12 +24,21 @@ export default function App(): JSX.Element{
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load data from localStorage
+  // Load data from localStorage only once at initial mount
   useEffect(() => {
     try {
       setLoading(true);
-      const stored = JSON.parse(localStorage.getItem("movies") || "[]") as Movie[];
-      setMovies(stored.length ? stored : sampleMovies);
+      const stored = localStorage.getItem("movies");
+      
+      if (stored) {
+        const parsedMovies = JSON.parse(stored) as Movie[];
+        setMovies(parsedMovies);
+      } else {
+        // Only use sample movies if no data exists
+        setMovies(sampleMovies);
+        // Save sample movies to localStorage
+        localStorage.setItem("movies", JSON.stringify(sampleMovies));
+      }
     } catch (err) {
       console.error("Error loading data:", err);
       setError("Failed to load movie data. Using default data.");
@@ -34,59 +46,62 @@ export default function App(): JSX.Element{
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once
 
-   // Save data to localStorage when movies change
-   useEffect(() => {
-    try {
-      localStorage.setItem("movies", JSON.stringify(movies));
-    } catch (err) {
-      console.error("Error saving data:", err);
-      setError("Failed to save your changes to local storage.");
+  // Save data to localStorage when movies change
+  useEffect(() => {
+    // Skip initial save when loading is true
+    if (!loading) {
+      try {
+        localStorage.setItem("movies", JSON.stringify(movies));
+      } catch (err) {
+        console.error("Error saving data:", err);
+        setError("Failed to save your changes to local storage.");
+      }
     }
-  }, [movies]);
+  }, [movies, loading]);
 
-    // Handlers
-    const handleAddMovie = (newMovie: Omit<Movie, "id">): void => {
-      try {
-        setMovies((prev) => [...prev, { ...newMovie, id: Date.now() }]);
-      } catch (err) {
-        setError("Failed to add movie.");
-      }
-    };
+  // Handlers
+  const handleAddMovie = (newMovie: Omit<Movie, "id">): void => {
+    try {
+      setMovies((prev) => [...prev, { ...newMovie, id: Date.now() }]);
+    } catch (err) {
+      setError("Failed to add movie.");
+    }
+  };
 
-    const handleUpdateMovie = (updatedMovie: Movie): void => {
-      try {
-        setMovies((prev) => 
-          prev.map((m) => (m.id === updatedMovie.id ? updatedMovie : m))
-        );
-        setEditId(null);
-      } catch (err) {
-        setError("Failed to update movie.");
-      }
-    };
+  const handleUpdateMovie = (updatedMovie: Movie): void => {
+    try {
+      setMovies((prev) => 
+        prev.map((m) => (m.id === updatedMovie.id ? updatedMovie : m))
+      );
+      setEditId(null);
+    } catch (err) {
+      setError("Failed to update movie.");
+    }
+  };
 
-    const handleDelete = (id: number): void => {
-      try {
-        setMovies((prev) => prev.filter((m) => m.id !== id));
-      } catch (err) {
-        setError("Failed to delete movie.");
-      }
-    };
+  const handleDelete = (id: number): void => {
+    try {
+      setMovies((prev) => prev.filter((m) => m.id !== id));
+    } catch (err) {
+      setError("Failed to delete movie.");
+    }
+  };
 
-    const handleEdit = (movie: Movie): void => {
-      setEditId(movie.id);
-    };
+  const handleEdit = (movie: Movie): void => {
+    setEditId(movie.id);
+  };
   
-    const handleSearchChange = (value: string): void => {
-      setSearch(value);
-    };
+  const handleSearchChange = (value: string): void => {
+    setSearch(value);
+  };
   
-    const clearError = (): void => {
-      setError(null);
-    };
+  const clearError = (): void => {
+    setError(null);
+  };
 
-     // Filter movies based on search
+  // Filter movies based on search
   const filteredMovies = movies.filter((m) =>
     m.title.toLowerCase().includes(search.toLowerCase())
   );
@@ -95,26 +110,23 @@ export default function App(): JSX.Element{
   const movieToEdit = movies.find(m => m.id === editId);
 
   return(
-    <div className="p-6 max-w-6xl mx-auto bg-white rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">🎬 Movie Dashboard</h1>
-      
+    <div className={styles.appContainer}>
+      <h1 className={styles.appTitle}>🎬 Movie Dashboard</h1>
+
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+        <div className={styles.errorMessage}>
           <span>{error}</span>
-          <button 
-            className="absolute top-0 right-0 px-4 py-3 text-xl font-bold" 
-            onClick={clearError}
-          >
+          <button className={styles.closeBtn} onClick={clearError}>
             &times;
           </button>
         </div>
       )}
 
-      <div className="mb-6">
+      <div className={styles.sectionSpacing}>
         <SearchBar value={search} onChange={handleSearchChange} />
       </div>
 
-      <div className="mb-6">
+      <div className={styles.sectionSpacing}>
         <ErrorBoundary fallback={<p>Something went wrong with the form. Please refresh.</p>}>
           <MovieForm 
             onSubmit={editId ? handleUpdateMovie : handleAddMovie}
@@ -129,7 +141,7 @@ export default function App(): JSX.Element{
         <LoadingSpinner />
       ) : (
         <>
-          <div className="mb-8">
+          <div className={styles.sectionSpacing}>
             <ErrorBoundary fallback={<p>Failed to load movie list. Please refresh.</p>}>
               <MovieList 
                 movies={filteredMovies} 

@@ -1,54 +1,62 @@
-# React + TypeScript + Vite
+# Movie Dashboard App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple React application for tracking and managing your movie collection with features for adding, editing, and searching movies. Data persists between sessions using browser local storage.
 
-Currently, two official plugins are available:
+## Setup Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
+- Node.js (version 14 or higher)
+- npm or yarn
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the repository to your local machine
+```
+git clone https://github.com/lloydgapton/MovieDashboard.git
+cd movie-dashboard
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Install dependencies
 ```
+npm install
+```
+or if you use yarn:
+```
+yarn install
+```
+
+3. Start the development server
+```
+npm start
+```
+or with yarn:
+```
+yarn start
+```
+
+4. Open your browser and navigate to http://localhost:3000
+
+## Features
+
+- Add new movies with title, year, genre, and rating
+- Edit existing movie entries
+- Delete unwanted movies
+- Search through your movie collection
+- View statistics about your collection
+- Data persists in browser storage
+
+
+## Usage
+
+1. Adding a movie: Fill out the form at the top of the dashboard and click "Add Movie"
+2. Editing a movie: Click the edit button on any movie card and update the information in the form
+3. Deleting a movie: Click the delete button on any movie card
+4. Searching: Type in the search bar to filter movies by title
+
+## Browser Support
+
+This application works on all modern browsers that support localStorage:
+- Chrome
+- Firefox
+- Safari
+- Edge

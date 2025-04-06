@@ -1,6 +1,7 @@
 import { JSX } from "react";
 import MovieCard from "./MovieCard";
 import { Movie } from "../types";
+import styles from "../styles/movielist.module.css";
 
 interface MovieListProps {
   movies: Movie[];
@@ -10,11 +11,11 @@ interface MovieListProps {
 
 export default function MovieList({ movies, onDelete, onEdit }: MovieListProps): JSX.Element {
   if (movies.length === 0) {
-    return <p className="text-gray-500 my-4">No movies found. Add some!</p>;
+    return <p className={styles.emptyMessage}>No movies found. Add some!</p>;
   }
 
   return (
-    <div className="grid gap-4 mb-8">
+    <div className={styles.movieGrid}>
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}

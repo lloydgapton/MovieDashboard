@@ -1,4 +1,6 @@
 import { JSX } from "react";
+import styles from "../styles/searchbar.module.css";
+
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
@@ -7,7 +9,7 @@ interface SearchBarProps {
 export default function SearchBar({ value, onChange }: SearchBarProps): JSX.Element {
   return (
     <input
-      className="border p-2 w-full mb-4 rounded"
+      className={styles.input}
       placeholder="Search by title..."
       value={value}
       onChange={(e) => onChange(e.target.value)}

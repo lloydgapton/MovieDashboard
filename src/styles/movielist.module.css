@@ -1,0 +1,11 @@
+.emptyMessage {
+    color: #6b7280;
+    margin: 1rem 0;
+  }
+  
+  .movieGrid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  

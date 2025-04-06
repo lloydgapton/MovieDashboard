@@ -1,0 +1,26 @@
+/* StatsSection.module.css */
+.container {
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .total, .rating {
+    margin-bottom: 0.5rem;
+  }
+  
+  .message {
+    color: #6b7280;
+    margin-top: 0.5rem;
+  }
+  
+  .chart {
+    margin-top: 1rem;
+  }
+  
