@@ -95,15 +95,15 @@ export default function App(): JSX.Element{
   const movieToEdit = movies.find(m => m.id === editId);
 
   return(
-    <div className="p-4 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">🎬 Movie Dashboard</h1>
+    <div className="p-6 max-w-6xl mx-auto bg-white rounded-lg shadow-lg">
+      <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">🎬 Movie Dashboard</h1>
       
       /* Error Display */
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
           <span>{error}</span>
           <button 
-            className="absolute top-0 right-0 px-4 py-3" 
+            className="absolute top-0 right-0 px-4 py-3 text-xl font-bold" 
             onClick={clearError}
           >
             &times;
@@ -111,37 +111,40 @@ export default function App(): JSX.Element{
         </div>
       )}
 
-      /* Search Bar */
-      <SearchBar value={search} onChange={handleSearchChange} />
+      <div className="mb-6">
+        <SearchBar value={search} onChange={handleSearchChange} />
+      </div>
 
-      {/* Movie Form */}
-      <ErrorBoundary fallback={<p>Something went wrong with the form. Please refresh.</p>}>
-        <MovieForm 
-          onSubmit={editId ? handleUpdateMovie : handleAddMovie}
-          initialData={movieToEdit}
-          isEditing={!!editId}
-          onCancelEdit={() => setEditId(null)}
-        />
-      </ErrorBoundary>
+      <div className="mb-6">
+        <ErrorBoundary fallback={<p>Something went wrong with the form. Please refresh.</p>}>
+          <MovieForm 
+            onSubmit={editId ? handleUpdateMovie : handleAddMovie}
+            initialData={movieToEdit}
+            isEditing={!!editId}
+            onCancelEdit={() => setEditId(null)}
+          />
+        </ErrorBoundary>
+      </div>
 
-      {/* Loading State */}
       {loading ? (
         <LoadingSpinner />
       ) : (
         <>
-          /* Movie List */
-          <ErrorBoundary fallback={<p>Failed to load movie list. Please refresh.</p>}>
-            <MovieList 
-              movies={filteredMovies} 
-              onDelete={handleDelete} 
-              onEdit={handleEdit} 
-            />
-          </ErrorBoundary>
+          <div className="mb-8">
+            <ErrorBoundary fallback={<p>Failed to load movie list. Please refresh.</p>}>
+              <MovieList 
+                movies={filteredMovies} 
+                onDelete={handleDelete} 
+                onEdit={handleEdit} 
+              />
+            </ErrorBoundary>
+          </div>
 
-          /* Stats Section */
-          <ErrorBoundary fallback={<p>Failed to load statistics. Please refresh.</p>}>
-            <StatsSection movies={movies} />
-          </ErrorBoundary>
+          <div>
+            <ErrorBoundary fallback={<p>Failed to load statistics. Please refresh.</p>}>
+              <StatsSection movies={movies} />
+            </ErrorBoundary>
+          </div>
         </>
       )}
     </div>
