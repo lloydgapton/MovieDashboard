@@ -36,6 +36,16 @@ export default function App(): JSX.Element{
     }
   }, []);
 
+   // Save data to localStorage when movies change
+   useEffect(() => {
+    try {
+      localStorage.setItem("movies", JSON.stringify(movies));
+    } catch (err) {
+      console.error("Error saving data:", err);
+      setError("Failed to save your changes to local storage.");
+    }
+  }, [movies]);
+
   return(
     <div className="p-4 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">🎬 Movie Dashboard</h1>
