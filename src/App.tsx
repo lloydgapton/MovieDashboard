@@ -66,6 +66,14 @@ export default function App(): JSX.Element{
       }
     };
 
+    const handleDelete = (id: number): void => {
+      try {
+        setMovies((prev) => prev.filter((m) => m.id !== id));
+      } catch (err) {
+        setError("Failed to delete movie.");
+      }
+    };
+
   return(
     <div className="p-4 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">🎬 Movie Dashboard</h1>
