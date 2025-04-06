@@ -55,6 +55,17 @@ export default function App(): JSX.Element{
       }
     };
 
+    const handleUpdateMovie = (updatedMovie: Movie): void => {
+      try {
+        setMovies((prev) => 
+          prev.map((m) => (m.id === updatedMovie.id ? updatedMovie : m))
+        );
+        setEditId(null);
+      } catch (err) {
+        setError("Failed to update movie.");
+      }
+    };
+
   return(
     <div className="p-4 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">🎬 Movie Dashboard</h1>
