@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import styles from "../../styles/LoadingSpinner.module.css";
+import styles from "../../styles/loadingspinner.module.css";
 
 export function LoadingSpinner(): JSX.Element {
     return (
