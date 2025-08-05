@@ -3,7 +3,7 @@ import SearchBar from "./components/SearchBar";
 import MovieList from "./components/MovieList";
 import MovieForm from "./components/MovieForm";
 import StatsSection from "./components/StatsSection";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import { Movie } from "./types";
 import { LoadingSpinner } from "./components/ui/LoadingSpinner";
 import { JSX } from "react";
@@ -23,6 +23,7 @@ export default function App(): JSX.Element{
   const [editId, setEditId] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   // Load data from localStorage only once at initial mount
   useEffect(() => {
@@ -91,6 +92,10 @@ export default function App(): JSX.Element{
 
   const handleEdit = (movie: Movie): void => {
     setEditId(movie.id);
+    setTimeout(() => {
+      // Focus on the form when editing starts)
+      formRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   };
   
   const handleSearchChange = (value: string): void => {
@@ -110,7 +115,7 @@ export default function App(): JSX.Element{
   const movieToEdit = movies.find(m => m.id === editId);
 
   return(
-    <div className={styles.appContainer}>
+    <div className={styles.appContainer} ref={formRef}>
       <h1 className={styles.appTitle}>🎬 Movie Dashboard</h1>
 
       {error && (

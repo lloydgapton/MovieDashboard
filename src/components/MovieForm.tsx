@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
 import { Movie, MovieFormData, FormErrors } from "../types";
@@ -24,6 +24,7 @@ export default function MovieForm({
     genre: "", 
     rating: "" 
   });
+  const titleInputRef = useRef<HTMLInputElement>(null);
   const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
@@ -38,7 +39,14 @@ export default function MovieForm({
     } else {
       setForm({ title: "", year: "", genre: "", rating: "" });
     }
-  }, [initialData]);
+  }, [initialData, isEditing]);
+
+  useEffect(() => {
+  if (isEditing && titleInputRef.current) {
+    titleInputRef.current.focus();
+    titleInputRef.current.select?.(); // Optional: selects all text for quick editing
+  }
+}, [isEditing, initialData?.id]);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -92,6 +100,7 @@ export default function MovieForm({
       <div className={styles.gridLayout}>
         <div>
           <Input
+            ref={titleInputRef}
             placeholder="Title"
             value={form.title}
             onChange={(e) => handleChange("title", e.target.value)}
