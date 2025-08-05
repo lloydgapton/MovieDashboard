@@ -15,6 +15,13 @@ const sampleMovies: Movie[] = [
   { id: 1, title: "Inception", year: 2010, genre: "Sci-Fi", rating: 8.8 },
   { id: 2, title: "Titanic", year: 1997, genre: "Romance", rating: 7.8 },
   { id: 3, title: "Avengers", year: 2012, genre: "Action", rating: 8.0 },
+  { id: 4, title: "The Godfather", year: 1972, genre: "Crime", rating: 9.2 },
+  { id: 5, title: "The Dark Knight", year: 2008, genre: "Action", rating: 9.0 },
+  { id: 6, title: "Pulp Fiction", year: 1994, genre: "Crime", rating: 8.9 },
+  { id: 7, title: "Forrest Gump", year: 1994, genre: "Drama", rating: 8.8 },
+  { id: 8, title: "The Matrix", year: 1999, genre: "Sci-Fi", rating: 8.7 },
+  { id: 9, title: "Fight Club", year: 1999, genre: "Drama", rating: 8.8 },
+  { id: 10, title: "The Shawshank Redemption", year: 1994, genre: "Drama", rating: 9.3 }
 ];
 
 export default function App(): JSX.Element{
